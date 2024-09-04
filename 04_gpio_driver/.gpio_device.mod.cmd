@@ -1,0 +1,1 @@
+savedcmd_/home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/gpio_device.mod := printf '%s\n'   gpio_device.o | awk '!x[$$0]++ { print("/home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/"$$0) }' > /home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/gpio_device.mod

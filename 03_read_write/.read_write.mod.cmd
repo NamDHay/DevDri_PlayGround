@@ -1,0 +1,1 @@
+savedcmd_/home/namdhay/MyPlayGround/Programming/Device_Driver/03_read_write/read_write.mod := printf '%s\n'   read_write.o | awk '!x[$$0]++ { print("/home/namdhay/MyPlayGround/Programming/Device_Driver/03_read_write/"$$0) }' > /home/namdhay/MyPlayGround/Programming/Device_Driver/03_read_write/read_write.mod
