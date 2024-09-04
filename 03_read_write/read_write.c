@@ -89,7 +89,7 @@ AddError:
 FileError:
   class_destroy(myclass);
 ClassError:
-  unregister_chrdev(my_device_nr, DRIVER_NAME);
+	unregister_chrdev_region(my_device_nr, 1);
   return -1;
 }
 
@@ -97,7 +97,7 @@ static void __exit ModuleExit(void) {
   cdev_del(&my_device);
   device_destroy(myclass, my_device_nr);
   class_destroy(myclass);
-  unregister_chrdev(my_device_nr, DRIVER_NAME);
+	unregister_chrdev_region(my_device_nr, 1);
 }
 
 module_init(ModuleInit);
