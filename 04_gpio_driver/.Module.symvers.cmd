@@ -1,1 +1,0 @@
-savedcmd_/home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/Module.symvers -T /home/namdhay/MyPlayGround/Programming/Device_Driver/04_gpio_driver/modules.order -i Module.symvers -e 
