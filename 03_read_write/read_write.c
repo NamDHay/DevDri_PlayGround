@@ -9,7 +9,7 @@ MODULE_AUTHOR("NamDHay");
 MODULE_DESCRIPTION("Register a device nr and implenment some callback function");
 
 static char buffer[255];
-static int buffer_pointer;
+static int buffer_pointer = 0;
 
 static dev_t my_device_nr;
 static struct class *myclass;
@@ -19,9 +19,9 @@ static struct cdev my_device;
 #define DRIVER_CLASS "MyModuleClass"
 
 static ssize_t driver_read(struct file *File, char *user_buffer, size_t count, loff_t *offs) {
-  int to_copy, not_copied, delta;
+  size_t to_copy, not_copied, delta;
 
-  to_copy = umin(count, buffer_pointer);
+  to_copy = min(count, (size_t)buffer_pointer);
 
   not_copied = copy_to_user(user_buffer, buffer, to_copy);
 
@@ -31,9 +31,9 @@ static ssize_t driver_read(struct file *File, char *user_buffer, size_t count, l
 }
 
 static ssize_t driver_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs) {
-  int to_copy, not_copied, delta;
+  size_t to_copy, not_copied, delta;
 
-  to_copy = umin(count, sizeof(buffer));
+  to_copy = min(count, sizeof(buffer));
 
   not_copied = copy_to_user(buffer, user_buffer, to_copy);
   buffer_pointer = to_copy;
