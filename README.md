@@ -116,13 +116,13 @@ make clean
 
 # OUTLINE
 
-[Lesson 1: **Hello World Linux Kernel Module**](01_Hello_Kernel/README.md)
+[**Lesson 1: Hello World Linux Kernel Module**](01_Hello_Kernel/README.md)
 
-[Lesson 2: **Device Numbers and Files**](02_dev_nr/README.md)
+[**Lesson 2: Device Numbers and Files**](02_dev_nr/README.md)
 
-[Lesson 3: **Auto Device File creation & Read- Write-Callbacks**](03_read_write/README.md)
+[**Lesson 3: Auto Device File creation & Read- Write-Callbacks**](03_read_write/README.md)
 
-[Lesson 4: GPIO Driver](04_gpio_driver/README.md)
+[**Lesson 4: GPIO Driver**](04_gpio_driver/README.md)
 
-[Lesson 12: Using Parameters in a Linux Kernel Module](12_parameters/README.md)
+[**Lesson 12: Using Parameters in a Linux Kernel Module**](12_parameters/README.md)
 
