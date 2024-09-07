@@ -1,0 +1,1 @@
+cmd_/home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/Module.symvers :=  sed 's/ko$$/o/'  /home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/modules.order | scripts/mod/modpost -m -a    -o /home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/Module.symvers -e -i Module.symvers -T - 

@@ -1,0 +1,1 @@
+cmd_/home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/ioctl_example.mod := printf '%s\n'   ioctl_example.o | awk '!x[$$0]++ { print("/home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/"$$0) }' > /home/namdhay/MyPlayGround/Programming/DevDri_PlayGround/13_ioctl/ioctl_example.mod
