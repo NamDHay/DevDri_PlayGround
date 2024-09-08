@@ -9,7 +9,7 @@
 int main() {
 	int answer;
 	struct mystruct test = {4, "NamDHay"};
-	int dev = open("/dev/dummy", O_RDWR);
+	int dev = open("/dev/mydevice", O_RDWR);
 	if(dev == -1) {
 		printf("Open was not possible!\n");
 		return -1;
