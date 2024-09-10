@@ -17,7 +17,7 @@ static struct cdev my_device;
 #define DRIVER_CLASS "MyModuleClass"
 
 struct pwm_device *pwm0 = NULL;
-u32 pwm_on_time = 500000000;
+u32 pwm_on_time = 500000;
 
 static ssize_t driver_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs) {
 	size_t to_copy, not_copied, delta;
@@ -26,11 +26,13 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 	to_copy = min(count, sizeof(value));
 	not_copied = copy_from_user(&value, user_buffer, to_copy);
 
-	if(value <= 'a' || value > 'j')
+	if(value <= 'a' || value > 'j') {
 		printk("Invalid Value!\n");
-	else
-		pwm_config(pwm0, 100000000 * (value - 'a'), 1000000000);
-
+		return -EINVAL;
+	} else {
+		pwm_config(pwm0, 100000 * (value - 'a'), 1000000);
+		pwm_enable(pwm0);
+	}
 	delta = to_copy - not_copied;
 
 	return delta;
@@ -84,7 +86,7 @@ static int __init ModuleInit(void) {
 		goto AddError;
 	}
 
-	pwm_config(pwm0, pwm_on_time, 1000000000);
+	pwm_config(pwm0, pwm_on_time, 1000000);
 	pwm_enable(pwm0);
 	return 0;
 AddError:
