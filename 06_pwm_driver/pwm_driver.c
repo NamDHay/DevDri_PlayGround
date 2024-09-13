@@ -26,7 +26,7 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 	to_copy = min(count, sizeof(value));
 	not_copied = copy_from_user(&value, user_buffer, to_copy);
 
-	if(value <= 'a' || value > 'j') {
+	if(value < 'a' || value > 'j') {
 		printk("Invalid Value!\n");
 		return -EINVAL;
 	} else {
