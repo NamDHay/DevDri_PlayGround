@@ -1,49 +1,54 @@
-# Lesson 1: Hello World Linux Kernel Module
+# Lesson 8: Timer in Linux Kernel Modules
 
-## 1. **Module Metadata**
-
-```c
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("NamDHay");
-MODULE_DESCRIPTION("A hello world LKM");
-```
-
-- These macros provide metadata about the module:
-    - **License**: Specifies that the module is GPL licensed, which is important for kernel modules.
-    - **Author**: Indicates the author of the module.
-    - **Description**: A brief description of what the module does.
-
-## 2. **Initialization Function**
+# 1. Include File
 
 ```c
-static int __init ModuleInit(void) {
-    printk("Hello Kernel\n");
-    return 0;
-}
+#include <linux/jiffies.h>
+#include <linux/timer.h>
 ```
 
-- **Purpose**: This function is called when the module is loaded into the kernel.
-- **`__init`**: A macro indicating that the function is for initialization and may be discarded after the module is loaded.
-- **`printk`**: A kernel function similar to `printf`, used for logging messages to the kernel log.
-- The function returns `0`, indicating successful initialization.
+# 2. Timer **Components**
 
-## 3. **Exit Function**
+## 1. **Timer Structure**
+
+• `struct timer_list`: This structure is used to define a timer in the kernel. It contains fields for the timer's state, expiration time, and the callback function to execute when the timer expires.
+
+## 2. Timer **Key Functions**
+
+### 1. Function setup timer
 
 ```c
-static void __exit ModuleExit(void) {
-    printk("Goodbye Kernel\n");
-}
+void timer_setup(struct timer_list *timer, void (*callback)(struct timer_list *), unsigned int flags);
 ```
 
-- **Purpose**: This function is called when the module is removed from the kernel.
-- **`__exit`**: A macro indicating that this function is called on module removal.
-- It also uses `printk` to log a message.
+• Initializes a timer. The `callback` function is called when the timer expires.
 
-## 4. **Module Entry and Exit Points**
+### 2. Function modify timer
 
 ```c
-module_init(ModuleInit);
-module_exit(ModuleExit);
+int mod_timer(struct timer_list *timer, unsigned long expires);
 ```
 
-• These macros register the initialization and exit functions with the kernel. They tell the kernel which functions to call when the module is loaded and unloaded.
+• Reschedules the timer to expire at a specified time. The `expires` parameter is usually calculated using jiffies.
+
+### 3. Function delete timer
+
+```c
+int del_timer(struct timer_list *timer);
+```
+
+• Deletes the timer, preventing it from expiring.
+
+## 3. **Jiffies API**
+
+### 1. Converts milliseconds to jiffies
+
+```c
+unsigned long msecs_to_jiffies(unsigned int msecs);
+```
+
+### 2. Jiffies back to milliseconds
+
+```c
+unsigned int jiffies_to_msecs(unsigned long jiffies);
+```

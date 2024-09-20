@@ -1,49 +1,75 @@
-# Lesson 1: Hello World Linux Kernel Module
+# Lesson 9: High Resolution Timer in Linux Kernel Modules
 
-## 1. **Module Metadata**
-
-```c
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("NamDHay");
-MODULE_DESCRIPTION("A hello world LKM");
-```
-
-- These macros provide metadata about the module:
-    - **License**: Specifies that the module is GPL licensed, which is important for kernel modules.
-    - **Author**: Indicates the author of the module.
-    - **Description**: A brief description of what the module does.
-
-## 2. **Initialization Function**
+# 1. Include File
 
 ```c
-static int __init ModuleInit(void) {
-    printk("Hello Kernel\n");
-    return 0;
-}
+#include <linux/jiffies.h>
+#include <linux/hrtimer.h>
 ```
 
-- **Purpose**: This function is called when the module is loaded into the kernel.
-- **`__init`**: A macro indicating that the function is for initialization and may be discarded after the module is loaded.
-- **`printk`**: A kernel function similar to `printf`, used for logging messages to the kernel log.
-- The function returns `0`, indicating successful initialization.
+# 2. Timer **Components**
 
-## 3. **Exit Function**
+## 1. **Timer Structure**
+
+1. **High-Resolution Timer**:
+    - HRTIMERS offer better precision than traditional timers (like `struct timer_list`) by using the system clock with a finer granularity, allowing for scheduling in microseconds or even nanoseconds, depending on the hardware.
+2. **Timer Structure**:
+    - The main data structure used in the HRTIMER API is `struct hrtimer`. This structure holds information about the timer, including its state, expiration time, and callback function.
+
+## 2. **Hrtimer Key Functions**
+
+### 1. **Initialization**
 
 ```c
-static void __exit ModuleExit(void) {
-    printk("Goodbye Kernel\n");
-}
+void hrtimer_init(struct hrtimer *timer, clockid_t clockid, enum hrtimer_mode mode);
 ```
 
-- **Purpose**: This function is called when the module is removed from the kernel.
-- **`__exit`**: A macro indicating that this function is called on module removal.
-- It also uses `printk` to log a message.
+- Initializes a high-resolution timer.
+- **Parameters**:
+    - `timer`: Pointer to the `hrtimer` structure.
+    - `clockid`: Specifies the clock to be used (e.g., `CLOCK_MONOTONIC`).
+    - `mode`: Specifies whether the timer is absolute or relative.
 
-## 4. **Module Entry and Exit Points**
+### 2. **Starting a Timer**
 
 ```c
-module_init(ModuleInit);
-module_exit(ModuleExit);
+int hrtimer_start(struct hrtimer *timer, ktime_t tim, enum hrtimer_mode mode);
 ```
 
-• These macros register the initialization and exit functions with the kernel. They tell the kernel which functions to call when the module is loaded and unloaded.
+- Starts or restarts the high-resolution timer.
+- **Parameters**:
+    - `tim`: The time until the timer expires, specified as a `ktime_t` value.
+    - `mode`: Specifies whether the timer is absolute or relative.
+
+### 3. **Cancelling a Timer**:
+
+```c
+int hrtimer_cancel(struct hrtimer *timer);
+```
+
+- Cancels the timer if it is currently active.
+- Returns the status of the timer (e.g., whether it was active or not).
+
+### **4. Timer Callback**
+
+- The callback function is defined by the user and is executed when the timer expires. The function should match the following prototype:
+
+```c
+enum hrtimer_restart my_timer_callback(struct hrtimer *timer);
+```
+
+### **5. Retrieving Remaining Time**
+
+```c
+ktime_t hrtimer_get_remaining(const struct hrtimer *timer);
+```
+
+- Returns the remaining time for an active timer.
+
+### 6. **Checking Timer Status**
+
+```c
+bool hrtimer_is_active(const struct hrtimer *timer);
+```
+
+- Checks if the timer is currently active.
