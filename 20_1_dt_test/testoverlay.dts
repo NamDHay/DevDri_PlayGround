@@ -6,14 +6,14 @@
     fragment@0 {
         target-path = "/";
         __overlay__ {
-            node0: node@0 {
+            node0 {
                 compatible = "first_device";
                 status = "okay";
                 label = "Test";
                 my_value = <12>;
             };
         
-            node1: node@1 {
+            node1 {
                 compatible = "second_device";
                 status = "okay";
                 label = "namdhay";
