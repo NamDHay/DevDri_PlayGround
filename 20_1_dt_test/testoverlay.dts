@@ -17,7 +17,7 @@
                 compatible = "second_device";
                 status = "okay";
                 name = "namdhay";
-                value = [0x01, 0x23, 0x45, 0x67];
+                value = /bits/ 8 <0x01 0x23 0x45 0x67>;
             };
         };
     };
