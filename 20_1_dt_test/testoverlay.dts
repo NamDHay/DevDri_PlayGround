@@ -9,14 +9,14 @@
             node0: node@0 {
                 compatible = "first_device";
                 status = "okay";
-                name = "Test";
+                label = "Test";
                 my_value = <12>;
             };
         
             node1: node@1 {
                 compatible = "second_device";
                 status = "okay";
-                name = "namdhay";
+                label = "namdhay";
                 value = /bits/ 8 <0x01 0x23 0x45 0x67>;
             };
         };
