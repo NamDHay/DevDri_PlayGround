@@ -1,24 +1,42 @@
 /dts-v1/;
 /plugin/;
 / {
-    compatible = "brcm,bcm2835";
+  compatible = "brcm,bcm2835";
 
-    fragment@0 {
-        target-path = "/";
-        __overlay__ {
-            node0 {
-                compatible = "first_device";
-                status = "okay";
-                label = "Test";
-                my_value = <12>;
-            };
-        
-            node1 {
-                compatible = "second_device";
-                status = "okay";
-                label = "namdhay";
-                value = /bits/ 8 <0x01 0x23 0x45 0x67>;
-            };
-        };
+  fragment@0 {
+    target-path = "/";
+    __overlay__ {
+      node0 {
+        compatible = "first_device";
+        status = "okay";
+        label = "Test";
+        my_value = <12>;
+      };
+
+      node1 {
+        compatible = "second_device";
+        status = "okay";
+        label = "namdhay";
+        value = <0x01 0x23 0x45 0x67>;
+      };
     };
+  };
+  fragment@1 {
+    target-path = "/";
+    __overlay__ {
+      node2 {
+        compatible = "third_device";
+        status = "okay";
+        label = "Test";
+        my_value = <12>;
+      };
+
+      node3 {
+        compatible = "fourth_device";
+        status = "okay";
+        label = "namdhay";
+        value = <0x01 0x23 0x45 0x67>;
+      };
+    };
+  };
 };
