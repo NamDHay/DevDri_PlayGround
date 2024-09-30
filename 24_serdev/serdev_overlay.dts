@@ -8,16 +8,12 @@
 			input {
 				compatible = "input_gpio";
 				status = "okay";
-				pin = <&gpio 4 0>,
-				    <&gpio 5 0>,
-				    <&gpio 6 0>;
+				pin = <&gpio 4 0>;
 			};
 			output {
 				compatible = "output_gpio";
 				status = "okay";
-				pin = <&gpio 4 0>,
-				    <&gpio 5 0>,
-				    <&gpio 6 0>;
+				pin = <&gpio 4 0>;
 			};
 		};
 	};

@@ -7,6 +7,9 @@ module:
 dt: serdev_overlay.dts
 	dtc -@ -I dts -O dtb -o serdev_overlay.dtbo serdev_overlay.dts
 	sudo dtoverlay serdev_overlay.dtbo
+debug:
+	sudo insmod serdev_echo.ko
+	dmesg | tail
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 	sudo rm -rf serdev_overlay.dtbo

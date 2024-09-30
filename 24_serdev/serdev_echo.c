@@ -3,11 +3,14 @@
 #include <linux/module.h>
 #include <linux/of.h>
 #include <linux/of_device.h>
+#include <linux/of_gpio.h>
 #include <linux/platform_device.h>
 #include <linux/property.h>
 #include <linux/serdev.h>
 #include <linux/gpio/consumer.h>
 #include <linux/proc_fs.h>
+#include <linux/string.h>
+#include <linux/kernel.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("NamDHay");
@@ -68,7 +71,13 @@ static struct proc_ops fops = {
 static int gpio_probe(struct platform_device *pdev) {
 	printk("dt_probe - Now I am in the probe function!\n");
 
-	my_led = gpiod_get(&pdev->dev, "output_gpio", GPIOD_OUT_LOW);
+	printk("dt_probe - Device name: %s\n", pdev->dev.of_node->name);
+	if(strcmp(pdev->dev.of_node->name,"output")) {
+		printk("dt_probe - Error! Name does not match\n");
+		return -EINVAL;
+	}
+
+	my_led = gpiod_get(&pdev->dev, "pin", GPIOD_OUT_LOW);
 	if(IS_ERR(my_led)) {
 		printk("dt_gpio - Error! Could not setup the GPIO\n");
 		return -1 * IS_ERR(my_led);
