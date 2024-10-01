@@ -8,12 +8,12 @@
 			input {
 				compatible = "input_gpio";
 				status = "okay";
-				pin = <&gpio 4 0>;
+				io-gpios = <&gpio 4 0>;
 			};
 			output {
 				compatible = "output_gpio";
 				status = "okay";
-				pin = <&gpio 4 0>;
+				io-gpios = <&gpio 4 0>;
 			};
 		};
 	};

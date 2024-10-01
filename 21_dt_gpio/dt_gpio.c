@@ -63,8 +63,8 @@ static int dt_gpio(struct platform_device *pdev) {
 		printk("dt_gpio - Error! Device property 'my_value' not found!\n");
 		return -1;
 	}
-	if(!device_property_present(dev, "green-led-gpio")) {
-		printk("dt_gpio - Error! Device property 'green-led-gpio' not found!\n");
+	if(!device_property_present(dev, "led-gpios")) {
+		printk("dt_gpio - Error! Device property 'led-pin' not found!\n");
 		return -1;
 	}
 
@@ -81,7 +81,7 @@ static int dt_gpio(struct platform_device *pdev) {
 	}
 	printk("dt_gpio - my_value: %d\n", my_value);
 
-	my_led = gpiod_get(dev, "green-led", GPIOD_OUT_LOW);
+	my_led = gpiod_get(dev, "led", GPIOD_OUT_LOW);
 	if(IS_ERR(my_led)) {
 		printk("dt_gpio - Error! Could not setup the GPIO\n");
 		return -1 * IS_ERR(my_led);

@@ -69,6 +69,7 @@ static struct proc_ops fops = {
 };
 
 static int gpio_probe(struct platform_device *pdev) {
+	int gpio_number;
 	printk("dt_probe - Now I am in the probe function!\n");
 
 	printk("dt_probe - Device name: %s\n", pdev->dev.of_node->name);
@@ -76,10 +77,11 @@ static int gpio_probe(struct platform_device *pdev) {
 		printk("dt_probe - Error! Name does not match\n");
 		return -EINVAL;
 	}
-
-	my_led = gpiod_get(&pdev->dev, "pin", GPIOD_OUT_LOW);
+	
+	gpio_number = of_get_named_gpio(pdev->dev.of_node, "io-gpios", 0);
+	my_led = gpiod_get(&pdev->dev, "io", GPIOD_OUT_LOW);
 	if(IS_ERR(my_led)) {
-		printk("dt_gpio - Error! Could not setup the GPIO\n");
+		printk("dt_gpio - Error! Could not setup the GPIO %d: %ld\n", gpio_number, PTR_ERR(my_led));
 		return -1 * IS_ERR(my_led);
 	}
 
